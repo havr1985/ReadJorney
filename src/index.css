@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Gilroy";
+  font-style: normal;
+  font-weight: 500;
+  src: local("Gilroy"),
+    url("./shared/fonts/Gilroy-Medium.woff2") format("truetype");
+}
+
+@font-face {
+    font-family: "Gilroy";
+    font-style: normal;
+    font-weight: 700;
+    src: local("Gilroy"),
+    url("./shared/fonts/Gilroy-Semibold.woff2") format("truetype");
+}
+
+body {
+  font-family: "gilroy";
+  background-color: #141414;
+  color: #F9F9F9;
+}

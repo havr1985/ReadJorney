@@ -1,6 +1,11 @@
+import { Container } from "./components/Container";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
-
-  return <div className="text-3xl font-bold underline">Hello World</div>;
+  return (
+    <Container>
+      <RegisterPage/>
+    </Container>
+  ); 
 }
-export default App
+export default App;
