@@ -1,10 +1,17 @@
+import { lazy } from "react";
 import { Container } from "./components/Container";
-import RegisterPage from "./pages/RegisterPage";
+import { Route, Routes } from "react-router-dom";
+
+const Register = lazy(() => import('./pages/RegisterPage'));
+const Login = lazy(() => import('./pages/LoginPage'))
 
 function App() {
   return (
     <Container>
-      <RegisterPage/>
+      <Routes>
+          <Route path="/" element={<Register/>}/>
+          <Route path="login" element={<Login />} />
+      </Routes>
     </Container>
   ); 
 }

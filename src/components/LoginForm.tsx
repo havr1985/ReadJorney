@@ -6,7 +6,7 @@ import { CustomBtn } from "./CustomBtn";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 
-export const RegisterForm = () => {
+export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleToglePassword = () => {
@@ -15,7 +15,6 @@ export const RegisterForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
       email: "",
       password: "",
     },
@@ -34,20 +33,6 @@ export const RegisterForm = () => {
   });
   return (
     <form onSubmit={formik.handleSubmit} className=" flex flex-col gap-2">
-      <div>
-        <input
-          className={inputStyle}
-          id="name"
-          name="name"
-          onChange={formik.handleChange}
-          value={formik.values.name}
-          placeholder="Name"
-        />
-        {formik.touched.name && formik.errors.name ? (
-          <div className=" text-[#E90516] text-xs">{formik.errors.name}</div>
-        ) : null}
-      </div>
-
       <div>
         <input
           className={inputStyle}
@@ -89,11 +74,8 @@ export const RegisterForm = () => {
 
       <div className=" flex gap-3.5 items-center mt-5">
         <CustomBtn>Submit</CustomBtn>
-        <Link
-          to="/login"
-          className=" text-sec-color text-xs tracking-tighter font-medium"
-        >
-          Already have an account?
+        <Link to="/" className=" text-sec-color text-xs tracking-tighter font-medium">
+          Don’t have an account?
         </Link>
       </div>
     </form>
