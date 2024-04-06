@@ -32,7 +32,10 @@ export const LoginForm = () => {
     },
   });
   return (
-    <form onSubmit={formik.handleSubmit} className=" flex flex-col gap-2">
+    <form
+      onSubmit={formik.handleSubmit}
+      className=" flex flex-col gap-2 md:gap-3.5"
+    >
       <div>
         <input
           className={inputStyle}
@@ -65,16 +68,19 @@ export const LoginForm = () => {
         ) : null}
         <button type="button" onClick={handleToglePassword}>
           {showPassword ? (
-            <Eye size={18} className=" absolute top-4 right-4" />
+            <Eye size={18} className=" absolute top-4 right-4 md:right-5" />
           ) : (
-            <EyeOff size={18} className=" absolute top-4 right-4" />
+            <EyeOff size={18} className=" absolute top-4 right-4 md:right-5" />
           )}
         </button>
       </div>
 
-      <div className=" flex gap-3.5 items-center mt-5">
-        <CustomBtn>Submit</CustomBtn>
-        <Link to="/" className=" text-sec-color text-xs tracking-tighter font-medium">
+      <div className=" flex gap-3.5 items-center mt-5 md:mt-16 md:mb-[150px] md:gap-5 xl:mb-[82px]">
+        <CustomBtn>Login</CustomBtn>
+        <Link
+          to="/"
+          className=" text-sec-color text-xs tracking-tighter font-medium md:text-sm"
+        >
           Don’t have an account?
         </Link>
       </div>

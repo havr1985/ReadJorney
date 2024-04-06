@@ -33,7 +33,10 @@ export const RegisterForm = () => {
     },
   });
   return (
-    <form onSubmit={formik.handleSubmit} className=" flex flex-col gap-2">
+    <form
+      onSubmit={formik.handleSubmit}
+      className=" flex flex-col gap-2 md:gap-3.5"
+    >
       <div>
         <input
           className={inputStyle}
@@ -63,7 +66,7 @@ export const RegisterForm = () => {
         ) : null}
       </div>
 
-      <div className=" relative">
+      <div className=" relative md:max-w-[472px]">
         <input
           className={inputStyle}
           id="password"
@@ -80,18 +83,18 @@ export const RegisterForm = () => {
         ) : null}
         <button type="button" onClick={handleToglePassword}>
           {showPassword ? (
-            <Eye size={18} className=" absolute top-4 right-4" />
+            <Eye size={18} className=" absolute top-4 right-4 md:right-5" />
           ) : (
-            <EyeOff size={18} className=" absolute top-4 right-4" />
+            <EyeOff size={18} className=" absolute top-4 right-4 md:right-5" />
           )}
         </button>
       </div>
 
-      <div className=" flex gap-3.5 items-center mt-5">
-        <CustomBtn>Submit</CustomBtn>
+      <div className=" flex gap-3.5 items-center mt-5 md:mt-16 md:mb-[150px] md:gap-5 xl:mb-[82px]">
+        <CustomBtn>Registration</CustomBtn>
         <Link
           to="/login"
-          className=" text-sec-color text-xs tracking-tighter font-medium"
+          className=" text-sec-color text-xs tracking-tighter font-medium md:text-sm"
         >
           Already have an account?
         </Link>
