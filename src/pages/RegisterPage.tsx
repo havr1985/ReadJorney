@@ -21,6 +21,7 @@ const RegisterPage = () => {
           <span className=" text-span-color">a book</span>
         </h2>
         <RegisterForm />
+        
       </div>
       <div className=" bg-bg-dark rounded-[30px] mt-2.5 flex md:hidden xl:flex xl:w-[600px] xl:mt-0">
         <div className=" mx-auto mt-5 xl:mt-36">
