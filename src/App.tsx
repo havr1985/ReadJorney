@@ -5,11 +5,16 @@ import { Layout } from "./components/Layout";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { RestictedRoute } from "./components/RestictedRoute";
 import { useCurrentQuery, useRefreshQuery } from "./redux/users/userApi";
+import { SerializedError } from "@reduxjs/toolkit";
 
 const Register = lazy(() => import('./pages/RegisterPage'));
 const Login = lazy(() => import('./pages/LoginPage'));
 const Home = lazy(() => import('./pages/HomePage'));
 const Library = lazy(() => import('./pages/LibraryPage'))
+
+interface CustomError extends SerializedError{
+  status?: number;
+}
 
 
 function App() {
@@ -18,7 +23,7 @@ function App() {
   const { isLoading, isError, refetch } = useRefreshQuery(null)
   
   useEffect(() => {
-    if (currentError && error.status === 401)  {
+    if (currentError && (error as CustomError).status === 401)  {
       if (!isLoading && !isError) {
         refetch()
       }

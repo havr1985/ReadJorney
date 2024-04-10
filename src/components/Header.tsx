@@ -1,9 +1,16 @@
-import { Menu } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import logo from '../assets/logo.svg'
 import { useCurrentQuery } from '../redux/users/userApi'
 import { MobileMenu } from './MobileMenu';
+import { useState } from 'react';
 
 export const Header = () => {
+
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
+
+  const handlerClickMenu = () => {
+    setIsOpenMenu(prev => !prev)
+  }
 
     const { data } = useCurrentQuery(null);
     const nameLetter = data?.name.charAt(0)
@@ -18,13 +25,13 @@ export const Header = () => {
                 <p>{nameLetter}</p>
               </div>
 
-              <button>
-                <Menu />
+              <button type="button" onClick={handlerClickMenu} className=' z-30'>
+                {isOpenMenu ? <X/> : <Menu />}
               </button>
             </div>
           </div>
         </header>
-        <MobileMenu/>
+        <MobileMenu isOpen={isOpenMenu} />
       </>
     );
 }
