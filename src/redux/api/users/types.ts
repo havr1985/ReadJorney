@@ -21,3 +21,7 @@ export interface IResponseRefreshApi {
 export interface ICurrentResponseApi extends IResponseRegisterApi {
     _id: string;
 }
+
+export interface ILogoutResponseApi {
+    message: string,
+}

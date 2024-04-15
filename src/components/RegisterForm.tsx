@@ -5,11 +5,11 @@ import { useState } from "react";
 import { CustomBtn } from "./CustomBtn";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
-import { useRegisterMutation } from "../redux/users/userApi";
+import { useRegisterMutation } from "../redux/api/users/userApi";
 
 export const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [register] = useRegisterMutation()
+  const [register] = useRegisterMutation();
 
   const handleToglePassword = () => {
     setShowPassword((prev) => !prev);
@@ -31,7 +31,7 @@ export const RegisterForm = () => {
         .min(7, "Enter a valid Password"),
     }),
     onSubmit: (values) => {
-      register(values)
+      register(values);
     },
   });
   return (

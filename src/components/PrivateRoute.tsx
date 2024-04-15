@@ -1,5 +1,7 @@
 import { FC, ReactNode } from "react";
 import { Navigate } from "react-router-dom";
+import { useAppSelector } from "../redux/hooks";
+import { selectIsAuthUser } from "../redux/slices/authSlice";
 
 interface IProps {
     component: ReactNode,
@@ -7,8 +9,8 @@ interface IProps {
 }
 
 
-export const PrivateRoute:FC<IProps> = ({component: Component, redirectTo=''}) => {
-    const isAuth = localStorage.getItem('isAuth');
+export const PrivateRoute: FC<IProps> = ({ component: Component, redirectTo = '' }) => {
+    const isAuth = useAppSelector(selectIsAuthUser)
 
-    return isAuth === 'true' ? Component : <Navigate to={redirectTo}/>
+    return isAuth ? Component : <Navigate to={redirectTo}/>
 }

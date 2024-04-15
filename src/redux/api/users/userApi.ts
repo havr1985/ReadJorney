@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   ICurrentResponseApi,
   ILoginRequestApi,
+  ILogoutResponseApi,
   IRequestRegisterApi,
   IResponseRefreshApi,
   IResponseRegisterApi,
@@ -62,6 +63,21 @@ export const userApi = createApi({
         return response;
       },
     }),
+    logout: builder.mutation<ILogoutResponseApi, null>({
+      query: () => ({
+        url: "users/signout",
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }),
+      transformResponse: (response: ILogoutResponseApi) => {
+        localStorage.setItem("token", "");
+        localStorage.setItem("refresh_token", "");
+        localStorage.setItem("isAuth", "false");
+        return response;
+      },
+    }),
     current: builder.query<ICurrentResponseApi, null>({
       query: () => ({
         url: "/users/current",
@@ -78,4 +94,5 @@ export const {
   useLoginMutation,
   useCurrentQuery,
   useRefreshQuery,
+  useLogoutMutation,
 } = userApi;

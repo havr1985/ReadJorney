@@ -4,13 +4,12 @@ import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { CustomBtn } from "./CustomBtn";
 import { useFormik } from "formik";
-import { Link, useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../redux/users/userApi";
+import { Link } from "react-router-dom";
+import { useLoginMutation } from "../redux/api/users/userApi";
 
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [login] = useLoginMutation();
-  const navigate = useNavigate()
 
   const handleToglePassword = () => {
     setShowPassword((prev) => !prev);
@@ -32,8 +31,6 @@ export const LoginForm = () => {
     onSubmit: (values, action) => {
       login(values);
       action.resetForm();
-      navigate('/')
-
     },
   });
   return (
@@ -50,7 +47,6 @@ export const LoginForm = () => {
           type="email"
           onChange={formik.handleChange}
           value={formik.values.email}
-
         />
         {formik.touched.email && formik.errors.email ? (
           <div className=" text-[#E90516] text-xs">{formik.errors.email}</div>
