@@ -3,6 +3,7 @@ import logo from "../assets/logo.svg";
 import { useCurrentQuery, useLogoutMutation } from "../redux/api/users/userApi";
 import { MobileMenu } from "./MobileMenu";
 import { useState } from "react";
+import { NavMenu } from "./NavMenu";
 
 export const Header = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -21,12 +22,16 @@ export const Header = () => {
   return (
     <>
       <header>
-        <div className=" flex justify-between bg-bg-dark px-5 py-3 rounded-2xl items-center">
+        <div className=" flex justify-between bg-bg-dark px-5 py-3 rounded-2xl items-center md:px-6 md:py-5">
           <img src={logo} alt="logo" className=" w-[42px] h-[17px]" />
-          <div className=" flex gap-2.5">
-            <div className=" flex w-[35px] h-[35px] rounded-full border-2 items-center justify-center ">
+          <div className=" sm:hidden md:flex  xl:flex">
+            <NavMenu/>
+          </div>
+          <div className=" flex gap-2.5 items-center">
+            <div className=" flex w-[35px] h-[35px] rounded-full border-2 items-center justify-center md:w-10 md:h-10">
               <p>{nameLetter}</p>
             </div>
+            <p className=" sm:hidden xl:block font-bold text-lg mr-2">{data?.name}</p>
 
             <button
               type="button"
