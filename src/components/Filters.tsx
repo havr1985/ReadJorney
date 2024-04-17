@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
-import { CustomBtn } from "./CustomBtn";
 import * as Yup from "yup";
 import { inputStyle } from "../shared/constats/constants";
+import { CustomDarkBtn } from "./CustomDarkBtn";
 
 export const Filters = () => {
   const formik = useFormik({
@@ -21,7 +21,7 @@ export const Filters = () => {
   return (
     <form
       onSubmit={formik.handleSubmit}
-      className=" flex flex-col gap-2 md:gap-3.5"
+      className=" flex flex-col gap-2 md:gap-3.5 md:w-[295px]"
     >
       <p className=" text-xs">Filters:</p>
       <div>
@@ -54,8 +54,8 @@ export const Filters = () => {
         ) : null}
       </div>
 
-      <div className=" flex gap-3.5 items-center mt-5 md:mt-16 md:mb-[150px] md:gap-5 xl:mb-[82px]">
-        <CustomBtn>To apply</CustomBtn>
+      <div className=" flex gap-3.5 items-center mt-5 md:mt-16 md:mb-[150px] md:gap-5 xl:mt-5 xl:mb-0">
+        <CustomDarkBtn>To apply</CustomDarkBtn>
       </div>
     </form>
   );

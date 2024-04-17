@@ -8,7 +8,6 @@ interface IPropsMenu {
 
 export const MobileMenu: FC<IPropsMenu> = ({ isOpen }) => {
   const [logout] = useLogoutMutation();
-  
 
   const clickLogout = () => {
     logout(null);
@@ -23,15 +22,9 @@ export const MobileMenu: FC<IPropsMenu> = ({ isOpen }) => {
         className=" absolute w-[60vw] h-[100vh] bg-[#262626] right-0 
       flex flex-col justify-around items-center"
       >
-        <NavMenu/>
-        <button
-          onClick={clickLogout}
-          className=" bg-prim-color text-btn-text-color text-sm font-bold w-[140px] h-[42px] rounded-[30px]
-       hover:bg-hover-color hover:text-prim-color
-       md:w-[225px] md:h-[52px] md:text-xl"
-        >
-          Log out
-        </button>
+        <NavMenu />
+        <button onClick={clickLogout} className=" bg-hover-color px-7 py-3 rounded-3xl text-sm border-2 border-sec-color
+         hover:bg-prim-color hover:text-hover-color hover:border-inherit">Log out</button>
       </div>
     </div>
   );
