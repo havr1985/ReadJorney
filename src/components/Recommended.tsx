@@ -2,11 +2,13 @@ import { useMediaQuery } from "react-responsive";
 import { useRecommendQuery } from "../redux/api/books/bookApi";
 import { CircleArrowLeft, CircleArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { BookCard } from "./BookCard";
 
 export const Recommended = () => {
   const [page, setPage] = useState(1);
   const [leftDisabled, setLeftDisabled] = useState(true);
-  const [rightDisabled, setRightDisabled] = useState(false)
+  const [rightDisabled, setRightDisabled] = useState(false);
+
   let perPage = 2;
 
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1439 });
@@ -20,13 +22,13 @@ export const Recommended = () => {
 
   const clickRight = () => {
     setPage((prev) => prev + 1);
-    console.log(page)
-    
+    console.log(page);
   };
 
   const clickLeft = () => {
     setPage((prev) => prev - 1);
   };
+
   useEffect(() => {
     if (page > 1) {
       setLeftDisabled(false);
@@ -35,14 +37,12 @@ export const Recommended = () => {
     }
     if (data?.totalPages) {
       if (page >= data.totalPages) {
-        setRightDisabled(true)
+        setRightDisabled(true);
       } else {
-        setRightDisabled(false)
+        setRightDisabled(false);
       }
     }
-  },[page, data])
-
-  
+  }, [page, data]);
 
   return (
     <div className=" bg-bg-dark rounded-xl py-10 px-5 mt-2.5 md:px-10 md:mt-4">
@@ -55,33 +55,33 @@ export const Recommended = () => {
             <CircleArrowLeft
               size={32}
               strokeWidth={1}
-              className={`${leftDisabled && "text-[#F9F9F933]"} md:w-10 md:h-10`}
+              className={`${
+                leftDisabled && "text-[#F9F9F933]"
+              } md:w-10 md:h-10`}
             />
           </button>
           <button type="button" onClick={clickRight} disabled={rightDisabled}>
             <CircleArrowRight
               size={32}
               strokeWidth={1}
-              className={`${rightDisabled && "text-[#F9F9F933]"} md:w-10 md:h-10`}
+              className={`${
+                rightDisabled && "text-[#F9F9F933]"
+              } md:w-10 md:h-10`}
             />
           </button>
         </div>
       </div>
 
       <ul className=" flex justify-between md:flex-wrap md:justify-normal md:gap-8">
-        {data?.results.map(({ title, _id, author, imageUrl }) => (
-          <li key={_id} className=" w-[127px]  md:w-[132px] xl:w-[162px]">
-            <img
-              src={imageUrl}
-              alt={title}
-              className=" h-[198px] rounded-lg mb-2 xl:w-[162px] xl:h-[218px]"
+        {data?.results.map(({ title, _id, author, imageUrl, totalPages }) => (
+          <li key={_id} className=" w-[127px]  md:w-[132px] xl:w-[162px] cursor-pointer">
+            <BookCard
+              title={title}
+              _id={_id}
+              author={author}
+              imageUrl={imageUrl}
+              totalPages={totalPages}
             />
-
-            <p className=" text-sm font-bold -tracking-wide truncate">
-              {title}
-            </p>
-
-            <p className=" text-xs text-sec-color -tracking-wider">{author}</p>
           </li>
         ))}
       </ul>

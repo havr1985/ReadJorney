@@ -20,7 +20,8 @@ export const booksApi = createApi({
       query: ({page, perPage}) => ({
         url: `/recommend?page=${page}&limit=${perPage}`,
       }),
-    }),
+      }),
+    
   }),
 });
 

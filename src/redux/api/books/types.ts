@@ -13,3 +13,15 @@ export interface IRecommendBookResponse {
   page: number;
   perPage: number;
 }
+
+export interface IGetBookByIdResponse {
+  _id: string;
+  title: string;
+  author: string;
+  imageUrl: string;
+  totalPages: number;
+  status: string;
+  owner: string;
+  progress: [];
+  timeLeftToRead: object;
+}
