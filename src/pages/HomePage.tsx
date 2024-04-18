@@ -1,9 +1,12 @@
-import { Dashboard } from "../components/Dashboard";
+import { HomeDashboardContent } from "../components/HomeDashboardContent";
 import { Recommended } from "../components/Recommended";
 
 const HomePage = () => {
   return (
-    <Dashboard><Recommended/></Dashboard>
+    <div className=" xl:flex xl:gap-4">
+      <HomeDashboardContent />
+      <Recommended />
+    </div>
   );
 };
 

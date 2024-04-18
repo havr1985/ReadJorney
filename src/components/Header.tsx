@@ -24,7 +24,10 @@ export const Header = () => {
     <>
       <header>
         <div className=" flex justify-between bg-bg-dark px-5 py-3 rounded-2xl items-center md:px-6 md:py-5">
-          <img src={logo} alt="logo" className=" w-[42px] h-[17px]" />
+          <div className=" flex gap-1 items-center">
+            <img src={logo} alt="logo" width={42} height={17} />
+            <p className=" sm:hidden md:block font-semibold">READ JORNEY</p>
+          </div>
           <div className=" sm:hidden md:flex  xl:flex">
             <NavMenu />
           </div>
