@@ -19,8 +19,8 @@ export const MobileMenu: FC<IPropsMenu> = ({ isOpen }) => {
       }`}
     >
       <div
-        className=" absolute w-[60vw] h-[100vh] bg-[#262626] right-0 
-      flex flex-col justify-around items-center"
+        className={`absolute w-[60vw] h-[100vh] bg-[#262626] right-0 z-40
+      flex flex-col justify-around items-center ${isOpen ? "" : "hidden"}`}
       >
         <NavMenu />
         <button onClick={clickLogout} className=" bg-hover-color px-7 py-3 rounded-3xl text-sm border-2 border-sec-color

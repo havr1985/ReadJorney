@@ -42,7 +42,7 @@ export const Header = () => {
             <button
               type="button"
               onClick={handlerClickMenu}
-              className=" z-30 md:hidden"
+              className=" z-50 md:hidden"
             >
               {isOpenMenu ? <X /> : <Menu />}
             </button>
