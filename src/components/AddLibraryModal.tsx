@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { CustomModal } from "./CustomModal";
+import { useAddBookByIdMutation } from "../redux/api/books/bookApi";
 
 interface IAddLibraryModalProps {
   modalIsOpen: boolean;
@@ -20,7 +21,14 @@ export const AddLibraryModal: FC<IAddLibraryModalProps> = ({
   imageUrl,
   totalPages,
 }) => {
-    console.log(_id)
+  console.log(_id)
+  
+  const [addBookbyId] = useAddBookByIdMutation();
+
+  const clickAddBook = (_id: string) => {
+    addBookbyId({ _id })
+  }
+
   return (
     <CustomModal modalIsOpen={modalIsOpen} closeModal={modalStateSwitcher}>
       <div className=" bg-btn-text-color flex flex-col items-center">
@@ -39,7 +47,7 @@ export const AddLibraryModal: FC<IAddLibraryModalProps> = ({
           <p className=" text-xs font-medium">{totalPages} pages</p>
         </div>
         <button
-          type="button"
+          type="button" onClick={() => clickAddBook(_id)}
           className="bg-hover-color px-7 py-3 rounded-3xl
          text-sm border-2 border-sec-color
          hover:bg-prim-color hover:text-hover-color hover:border-inherit"

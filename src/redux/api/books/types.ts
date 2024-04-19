@@ -14,7 +14,7 @@ export interface IRecommendBookResponse {
   perPage: number;
 }
 
-export interface IGetBookByIdResponse {
+export interface IAddBookByIdResponse {
   _id: string;
   title: string;
   author: string;
@@ -23,5 +23,4 @@ export interface IGetBookByIdResponse {
   status: string;
   owner: string;
   progress: [];
-  timeLeftToRead: object;
 }

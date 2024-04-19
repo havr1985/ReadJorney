@@ -26,9 +26,9 @@ export const Header = () => {
         <div className=" flex justify-between bg-bg-dark px-5 py-3 rounded-2xl items-center md:px-6 md:py-5">
           <div className=" flex gap-1 items-center">
             <img src={logo} alt="logo" width={42} height={17} />
-            <p className=" sm:hidden md:block font-semibold">READ JORNEY</p>
+            <p className=" lg:hidden md:block font-semibold">READ JORNEY</p>
           </div>
-          <div className=" sm:hidden md:flex  xl:flex">
+          <div className=" lg:hidden md:flex  xl:flex">
             <NavMenu />
           </div>
           <div className=" flex gap-2.5 items-center">
