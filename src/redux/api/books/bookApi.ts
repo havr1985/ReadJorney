@@ -1,5 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IAddBookByIdResponse, IRecommendBookResponse } from "./types";
+import {
+  IAddBookByIdResponse,
+  IGetUsersBooks,
+  IRecommendBookResponse,
+} from "./types";
 
 const BARE_URL = "https://readjourney.b.goit.study/api/books";
 
@@ -15,19 +19,43 @@ export const booksApi = createApi({
       return headers;
     },
   }),
+  refetchOnMountOrArgChange: true,
   endpoints: (builder) => ({
-      recommend: builder.query<IRecommendBookResponse, { page: number; perPage: number}>({
-      query: ({page, perPage}) => ({
-        url: `/recommend?page=${page}&limit=${perPage}`,
+    recommend: builder.query<
+      IRecommendBookResponse,
+      { page: number; perPage: number; title: string; author: string }
+    >({
+      query: ({ page, perPage, title, author }) => ({
+        url: `/recommend?page=${page}&limit=${perPage}&title=${title}&author=${author}`,
       }),
-      }),
+    }),
     addBookById: builder.mutation<IAddBookByIdResponse, { _id: string }>({
       query: ({ _id }) => ({
         url: `/add/${_id}`,
-        method: 'POST',
-      })
-    })
+        method: "POST",
+      }),
+    }),
+    getUsersBook: builder.query<IGetUsersBooks[], void>({
+      query: () => ({
+        url: "/own",
+        method: "GET",
+      }),
+    }),
+    deleteUsersBook: builder.mutation<
+      { message: string; id: string },
+      { _id: string }
+    >({
+      query: ({ _id }) => ({
+        url: `/remove/${_id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useRecommendQuery, useAddBookByIdMutation } = booksApi;
+export const {
+  useRecommendQuery,
+  useAddBookByIdMutation,
+  useGetUsersBookQuery,
+  useDeleteUsersBookMutation,
+} = booksApi;

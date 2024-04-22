@@ -24,3 +24,13 @@ export interface IAddBookByIdResponse {
   owner: string;
   progress: [];
 }
+
+export interface IGetUsersBooks {
+  _id: string;
+  title: string;
+  author: string;
+  imageUrl: string;
+  totalPages: number;
+  owner: string;
+  progress: [],
+}

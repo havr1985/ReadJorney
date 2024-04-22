@@ -1,9 +1,11 @@
+import { LibraryBooks } from "../components/LibraryBooks";
 import { LibraryDashboardContent } from "../components/LibraryDashboardContent";
 
 const LibraryPage = () => {
     return (
         <div>
-            <LibraryDashboardContent/>
+            <LibraryDashboardContent />
+            <LibraryBooks/>
         </div>
     )
 }

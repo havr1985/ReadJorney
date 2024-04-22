@@ -3,11 +3,14 @@ import { useRecommendQuery } from "../redux/api/books/bookApi";
 import { CircleArrowLeft, CircleArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { BookCard } from "./BookCard";
+import { useSelector } from "react-redux";
+import { selectRecommendFilter } from "../redux/slices/filterSlice";
 
 export const Recommended = () => {
   const [page, setPage] = useState(1);
   const [leftDisabled, setLeftDisabled] = useState(true);
   const [rightDisabled, setRightDisabled] = useState(false);
+  const {title, author} = useSelector(selectRecommendFilter);
 
   let perPage = 2;
 
@@ -17,7 +20,7 @@ export const Recommended = () => {
   if (isTablet) perPage = 8;
   if (isDesktop) perPage = 10;
 
-  const { data, isLoading, isError } = useRecommendQuery({ page, perPage });
+  const { data, isLoading, isError } = useRecommendQuery({ page, perPage, title, author });
   console.log(data?.results);
 
   const clickRight = () => {

@@ -1,12 +1,15 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { inputStyle } from "../shared/constats/constants";
-import { CustomDarkBtn } from "./CustomDarkBtn";
+import { useAppDispatch } from "../redux/hooks";
+import { ChangeFilter } from "../redux/slices/filterSlice";
 
 export const Filters = () => {
+
+  const dispatch = useAppDispatch()
   const formik = useFormik({
     initialValues: {
-      book: "",
+      title: "",
       author: "",
     },
     validationSchema: Yup.object().shape({
@@ -14,7 +17,7 @@ export const Filters = () => {
       author: Yup.string().min(1, "Enter the author!"),
     }),
     onSubmit: (values, action) => {
-      console.log(values);
+      dispatch(ChangeFilter(values))
       action.resetForm();
     },
   });
@@ -27,15 +30,15 @@ export const Filters = () => {
       <div>
         <input
           className={inputStyle}
-          id="book"
-          name="book"
+          id="title"
+          name="title"
           placeholder="Book title"
           type="text"
           onChange={formik.handleChange}
-          value={formik.values.book}
+          value={formik.values.title}
         />
-        {formik.touched.book && formik.errors.book ? (
-          <div className=" text-[#E90516] text-xs">{formik.errors.book}</div>
+        {formik.touched.title && formik.errors.title ? (
+          <div className=" text-[#E90516] text-xs">{formik.errors.title}</div>
         ) : null}
       </div>
 
@@ -55,7 +58,8 @@ export const Filters = () => {
       </div>
 
       <div className=" flex gap-3.5 items-center mt-5 md:mt-16 md:mb-[150px] md:gap-5 xl:mt-5 xl:mb-0">
-        <CustomDarkBtn>To apply</CustomDarkBtn>
+        <button type="submit" className=" bg-hover-color px-7 py-3 rounded-3xl text-sm border-2 border-sec-color
+         hover:bg-prim-color hover:text-hover-color hover:border-inherit">To apply</button>
       </div>
     </form>
   );

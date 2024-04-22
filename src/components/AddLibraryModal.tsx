@@ -1,6 +1,9 @@
 import { FC } from "react";
 import { CustomModal } from "./CustomModal";
 import { useAddBookByIdMutation } from "../redux/api/books/bookApi";
+import { useAppSelector } from "../redux/hooks";
+import { selectLibraryBooks } from "../redux/slices/librarySlice";
+import toast from "react-hot-toast";
 
 interface IAddLibraryModalProps {
   modalIsOpen: boolean;
@@ -21,13 +24,24 @@ export const AddLibraryModal: FC<IAddLibraryModalProps> = ({
   imageUrl,
   totalPages,
 }) => {
-  console.log(_id)
-  
-  const [addBookbyId] = useAddBookByIdMutation();
+  const [addBookbyId, {isError}] = useAddBookByIdMutation();
+  const libraryBook = useAppSelector(selectLibraryBooks);
 
-  const clickAddBook = (_id: string) => {
-    addBookbyId({ _id })
-  }
+
+  const clickAddBook = (_id: string, title: string) => {
+    
+    if (libraryBook) {
+      const isInLibrary = libraryBook.find(item => item.title.toLowerCase() === title.toLowerCase());
+      if (isInLibrary) {
+        toast.error("The book is already in your library!")
+        return
+      }
+    }
+    addBookbyId({ _id });
+    if (!isError) {
+      toast.success("The book has been added to your library!")
+    }
+  };
 
   return (
     <CustomModal modalIsOpen={modalIsOpen} closeModal={modalStateSwitcher}>
@@ -47,7 +61,8 @@ export const AddLibraryModal: FC<IAddLibraryModalProps> = ({
           <p className=" text-xs font-medium">{totalPages} pages</p>
         </div>
         <button
-          type="button" onClick={() => clickAddBook(_id)}
+          type="button"
+          onClick={() => clickAddBook(_id, title)}
           className="bg-hover-color px-7 py-3 rounded-3xl
          text-sm border-2 border-sec-color
          hover:bg-prim-color hover:text-hover-color hover:border-inherit"
