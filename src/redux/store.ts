@@ -4,6 +4,7 @@ import auth from "./slices/authSlice";
 import { booksApi } from "./api/books/bookApi";
 import library from './slices/librarySlice';
 import filter from './slices/filterSlice';
+import libraryFilter from './slices/libraryFilterSlice'
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     auth,
     library,
     filter,
+    libraryFilter,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([userApi.middleware, booksApi.middleware]),

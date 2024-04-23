@@ -21,21 +21,24 @@ export const BookCard: FC<IBookCardProps> = ({
 }) => {
   const [isModalAddLibrary, setIsModalAddLibrary] = useState(false);
   const [remove] = useDeleteUsersBookMutation();
-  const location = useLocation()
+  const location = useLocation();
+
+  const altImage =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXmxEdVrPsocD2mi5abpFV18QBEhFVAxHqjQ&s";
 
   const modalStateSwitcher = () => {
     setIsModalAddLibrary((prev) => !prev);
   };
 
-  const clickDelete = (_id:string) => {
-    remove({_id})
-  }
+  const clickDelete = (_id: string) => {
+    remove({ _id });
+  };
 
   return (
     <>
       <div onClick={() => modalStateSwitcher()}>
         <img
-          src={imageUrl}
+          src={imageUrl ? imageUrl : altImage}
           alt={title}
           className=" h-[198px] rounded-lg mb-2 xl:w-[162px] xl:h-[218px]"
         />

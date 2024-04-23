@@ -4,8 +4,10 @@ import { useRecommendQuery } from "../redux/api/books/bookApi";
 
 export const LibraryRecomended = () => {
     const page = 1;
-    const perPage = 3
-    const { data } = useRecommendQuery({page, perPage});
+  const perPage = 3;
+  const title = '';
+  const author = '';
+    const { data } = useRecommendQuery({page, perPage, title, author});
 
     return (
       <div className=" flex flex-col gap-5 bg-[#262626] rounded-xl p-5 mt-5 md:w-[313px] xl:mt-[71px]">

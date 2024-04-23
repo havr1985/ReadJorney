@@ -1,11 +1,11 @@
 import { Dashboard } from "./Dashboard"
-import { FiltersLibrary } from "./FiltersLibrary"
+import { FormAddLibrary } from "./FormAddLibrary"
 import { LibraryRecomended } from "./LibraryRecomended"
 
 export const LibraryDashboardContent = () => {
     return (
         <Dashboard>
-            <FiltersLibrary />
+            <FormAddLibrary/>
             <LibraryRecomended/>
         </Dashboard>
     )

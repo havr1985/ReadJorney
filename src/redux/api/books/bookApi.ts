@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   IAddBookByIdResponse,
+  IAddBookRequest,
   IGetUsersBooks,
   IRecommendBookResponse,
 } from "./types";
@@ -35,9 +36,16 @@ export const booksApi = createApi({
         method: "POST",
       }),
     }),
-    getUsersBook: builder.query<IGetUsersBooks[], void>({
-      query: () => ({
-        url: "/own",
+    addBook: builder.mutation<IGetUsersBooks, IAddBookRequest>({
+      query: (body) => ({
+        url: "/add",
+        method: "POST",
+        body,
+      }),
+    }),
+    getUsersBook: builder.query<IGetUsersBooks[], { status: string | null }>({
+      query: ({ status }) => ({
+        url: status ? `/own?status=${status}` : "/own",
         method: "GET",
       }),
     }),
@@ -58,4 +66,5 @@ export const {
   useAddBookByIdMutation,
   useGetUsersBookQuery,
   useDeleteUsersBookMutation,
+  useAddBookMutation,
 } = booksApi;

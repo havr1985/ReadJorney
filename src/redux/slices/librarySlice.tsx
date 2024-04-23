@@ -3,9 +3,8 @@ import { booksApi } from "../api/books/bookApi";
 import { RootState } from "../store";
 import { IGetUsersBooks } from "../api/books/types";
 
-
 const storageBooksJSON: string | null = localStorage.getItem("library");
-let storageBooks:IGetUsersBooks[] = [];
+let storageBooks: IGetUsersBooks[] | undefined = [];
 if (storageBooksJSON) {
   storageBooks = JSON.parse(storageBooksJSON);
 }
@@ -18,22 +17,36 @@ const librarySlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addMatcher(
-      booksApi.endpoints.getUsersBook.matchFulfilled,
-      (state, { payload }) => {
-        state.books = payload;
-        localStorage.setItem("library", JSON.stringify(payload));
-      }
-    )
-        .addMatcher(
-            booksApi.endpoints.deleteUsersBook.matchFulfilled,
-            (state, { payload }) => {
-                state.books = state.books.filter(item => item._id !== payload.id)
-                localStorage.setItem("library", JSON.stringify(state.books))
-            }
+    builder
+      .addMatcher(
+        booksApi.endpoints.getUsersBook.matchFulfilled,
+        (state, { payload }) => {
+          state.books = payload;
+          localStorage.setItem("library", JSON.stringify(payload));
+        }
       )
+      .addMatcher(
+        booksApi.endpoints.deleteUsersBook.matchFulfilled,
+        (state, { payload }) => {
+          if (state.books) {
+            state.books = state.books.filter((item) => item._id !== payload.id);
+            localStorage.setItem("library", JSON.stringify(state.books));
+          }
+          
+        }
+      )
+      .addMatcher(
+        booksApi.endpoints.addBook.matchFulfilled,
+        (state, { payload }) => {
+          if (state.books) {
+            state.books.push(payload);
+            localStorage.setItem("library", JSON.stringify(state.books))
+          }
+          
+        }
+      );
   },
 });
 
 export default librarySlice.reducer;
-export const selectLibraryBooks = (state: RootState) => state.library.books 
+export const selectLibraryBooks = (state: RootState) => state.library.books;

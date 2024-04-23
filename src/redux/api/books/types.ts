@@ -1,10 +1,10 @@
 interface Book {
-    _id: string,
-    title: string,
-    author: string,
-    imageUrl: string,
-    totalPages: number,
-    recommend: boolean,
+  _id: string;
+  title: string;
+  author: string;
+  imageUrl: string;
+  totalPages: number;
+  recommend: boolean;
 }
 
 export interface IRecommendBookResponse {
@@ -31,6 +31,12 @@ export interface IGetUsersBooks {
   author: string;
   imageUrl: string;
   totalPages: number;
+  status: string;
   owner: string;
-  progress: [],
+  progress: [];
+}
+export interface IAddBookRequest {
+  title: string;
+  author: string;
+  totalPages: number | undefined;
 }

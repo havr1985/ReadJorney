@@ -35,7 +35,7 @@ export const Header = () => {
             <div className=" flex w-[35px] h-[35px] rounded-full border-2 items-center justify-center md:w-10 md:h-10">
               <p>{nameLetter}</p>
             </div>
-            <p className=" sm:hidden xl:block font-bold text-lg mr-2">
+            <p className=" lg:hidden xl:block font-bold text-lg mr-2">
               {data?.name}
             </p>
 

@@ -1,23 +1,28 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { inputStyle } from "../shared/constats/constants";
+import { useAddBookMutation } from "../redux/api/books/bookApi";
 
-export const FiltersLibrary = () => {
+export const FormAddLibrary = () => {
+
+  const [addBook] = useAddBookMutation();
+
   const formik = useFormik({
     initialValues: {
-      book: "",
+      title: "",
       author: "",
-      totalPages: "",
+      totalPages: undefined,
     },
     validationSchema: Yup.object().shape({
-      book: Yup.string()
+      title: Yup.string()
         .min(1, "Enter the title of the book!")
         .required("Required!"),
       author: Yup.string().min(1, "Enter the author!").required("Required!"),
       totalPages: Yup.number().required("Required!"),
     }),
     onSubmit: (values, action) => {
-      console.log(values);
+      console.log(values)
+      addBook(values)
       action.resetForm();
     },
   });
@@ -30,15 +35,15 @@ export const FiltersLibrary = () => {
       <div>
         <input
           className={inputStyle}
-          id="book"
-          name="book"
+          id="title"
+          name="title"
           placeholder="Book title"
           type="text"
           onChange={formik.handleChange}
-          value={formik.values.book}
+          value={formik.values.title}
         />
-        {formik.touched.book && formik.errors.book ? (
-          <div className=" text-[#E90516] text-xs">{formik.errors.book}</div>
+        {formik.touched.title && formik.errors.title ? (
+          <div className=" text-[#E90516] text-xs">{formik.errors.title}</div>
         ) : null}
       </div>
 
@@ -61,11 +66,11 @@ export const FiltersLibrary = () => {
         <input
           className={inputStyle}
           id="totalPages"
-          name="TotalPages"
+          name="totalPages"
           onChange={formik.handleChange}
           value={formik.values.totalPages}
           placeholder="Number of pages"
-          type="number"
+          type='number'
         />
         {formik.touched.totalPages && formik.errors.totalPages ? (
           <div className=" text-[#E90516] text-xs">
