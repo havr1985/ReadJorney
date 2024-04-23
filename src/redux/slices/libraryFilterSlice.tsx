@@ -8,7 +8,8 @@ const libraryFilterSlice = createSlice({
     initialState: status,
     reducers: {
         ChangeLibraryFilter(state, { payload }) {
-            return state = payload;
+            state = payload;
+            return state;
         }
     }
 })
