@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { inputStyle } from "../shared/constats/constants";
 import { useAppDispatch } from "../redux/hooks";
 import { ChangeFilter } from "../redux/slices/filterSlice";
+import { CustomDarkBtn } from "./CustomDarkBtn";
 
 export const Filters = () => {
 
@@ -13,8 +14,8 @@ export const Filters = () => {
       author: "",
     },
     validationSchema: Yup.object().shape({
-      book: Yup.string().min(1, "Enter the title of the book!"),
-      author: Yup.string().min(1, "Enter the author!"),
+      title: Yup.string().min(1, "Enter the title of the book!").required(),
+      author: Yup.string().min(1, "Enter the author!").required(),
     }),
     onSubmit: (values, action) => {
       dispatch(ChangeFilter(values))
@@ -58,8 +59,7 @@ export const Filters = () => {
       </div>
 
       <div className=" flex gap-3.5 items-center mt-5 md:mt-16 md:mb-[150px] md:gap-5 xl:mt-5 xl:mb-0">
-        <button type="submit" className=" bg-hover-color px-7 py-3 rounded-3xl text-sm border-2 border-sec-color
-         hover:bg-prim-color hover:text-hover-color hover:border-inherit">To apply</button>
+        <CustomDarkBtn type="submit">To apply</CustomDarkBtn>
       </div>
     </form>
   );

@@ -4,6 +4,8 @@ import { useAddBookByIdMutation } from "../redux/api/books/bookApi";
 import { useAppSelector } from "../redux/hooks";
 import { selectLibraryBooks } from "../redux/slices/librarySlice";
 import toast from "react-hot-toast";
+import { useLocation } from "react-router-dom";
+import { CustomDarkBtn } from "./CustomDarkBtn";
 
 interface IAddLibraryModalProps {
   modalIsOpen: boolean;
@@ -24,22 +26,23 @@ export const AddLibraryModal: FC<IAddLibraryModalProps> = ({
   imageUrl,
   totalPages,
 }) => {
-  const [addBookbyId, {isError}] = useAddBookByIdMutation();
+  const [addBookbyId, { isError }] = useAddBookByIdMutation();
   const libraryBook = useAppSelector(selectLibraryBooks);
-
+  const location = useLocation();
 
   const clickAddBook = (_id: string, title: string) => {
-    
     if (libraryBook) {
-      const isInLibrary = libraryBook.find(item => item.title.toLowerCase() === title.toLowerCase());
+      const isInLibrary = libraryBook.find(
+        (item) => item.title.toLowerCase() === title.toLowerCase()
+      );
       if (isInLibrary) {
-        toast.error("The book is already in your library!")
-        return
+        toast.error("The book is already in your library!");
+        return;
       }
     }
     addBookbyId({ _id });
     if (!isError) {
-      toast.success("The book has been added to your library!")
+      toast.success("The book has been added to your library!");
     }
   };
 
@@ -60,15 +63,15 @@ export const AddLibraryModal: FC<IAddLibraryModalProps> = ({
           </p>
           <p className=" text-xs font-medium">{totalPages} pages</p>
         </div>
-        <button
-          type="button"
-          onClick={() => clickAddBook(_id, title)}
-          className="bg-hover-color px-7 py-3 rounded-3xl
-         text-sm border-2 border-sec-color
-         hover:bg-prim-color hover:text-hover-color hover:border-inherit"
-        >
-          Add to library
-        </button>
+        {location.pathname === "/" ? (
+          <div onClick={() => clickAddBook(_id, title)}>
+            <CustomDarkBtn type="button">Add to library</CustomDarkBtn>
+          </div>
+        ) : (
+          <div>
+            <CustomDarkBtn type="button">Start reading</CustomDarkBtn>
+          </div>
+        )}
       </div>
     </CustomModal>
   );

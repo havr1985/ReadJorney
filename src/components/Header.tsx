@@ -4,7 +4,7 @@ import { useCurrentQuery, useLogoutMutation } from "../redux/api/users/userApi";
 import { MobileMenu } from "./MobileMenu";
 import { useState } from "react";
 import { NavMenu } from "./NavMenu";
-import { CustomDarkBtn } from "./CustomDarkBtn";
+
 
 export const Header = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -47,7 +47,12 @@ export const Header = () => {
               {isOpenMenu ? <X /> : <Menu />}
             </button>
             <div onClick={clickLogout}>
-              <CustomDarkBtn>Log out</CustomDarkBtn>
+              <button
+                className=" bg-hover-color px-7 py-3 rounded-3xl text-sm border-2 duration-300 border-sec-color
+         hover:bg-prim-color hover:text-hover-color hover:border-inherit lg:hidden md:block"
+              >
+                Log out
+              </button>
             </div>
           </div>
         </div>

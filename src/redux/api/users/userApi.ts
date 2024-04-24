@@ -32,7 +32,6 @@ export const userApi = createApi({
       transformResponse: (response: IResponseRegisterApi) => {
         localStorage.setItem("token", response.token);
         localStorage.setItem("refresh_token", response.refreshToken);
-        localStorage.setItem("isAuth", "true");
         return response;
       },
     }),
@@ -45,11 +44,10 @@ export const userApi = createApi({
       transformResponse: (response: IResponseRegisterApi) => {
         localStorage.setItem("token", response.token);
         localStorage.setItem("refresh_token", response.refreshToken);
-        localStorage.setItem("isAuth", "true");
         return response;
       },
     }),
-    refresh: builder.query<IResponseRefreshApi, null>({
+    refresh: builder.mutation<IResponseRefreshApi, void>({
       query: () => ({
         url: "/users/current/refresh",
         headers: {
@@ -59,7 +57,6 @@ export const userApi = createApi({
       transformResponse: (response: IResponseRefreshApi) => {
         localStorage.setItem("token", response.token);
         localStorage.setItem("refresh_token", response.refreshToken);
-        localStorage.setItem("isAuth", "true");
         return response;
       },
     }),
@@ -74,7 +71,6 @@ export const userApi = createApi({
       transformResponse: (response: ILogoutResponseApi) => {
         localStorage.setItem("token", "");
         localStorage.setItem("refresh_token", "");
-        localStorage.setItem("isAuth", "false");
         return response;
       },
     }),
@@ -93,6 +89,8 @@ export const {
   useRegisterMutation,
   useLoginMutation,
   useCurrentQuery,
-  useRefreshQuery,
+  useRefreshMutation,
   useLogoutMutation,
 } = userApi;
+
+export const { refresh } = userApi.endpoints;
