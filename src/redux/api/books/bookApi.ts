@@ -2,8 +2,11 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   IAddBookByIdResponse,
   IAddBookRequest,
+  IGetFinishBook,
   IGetUsersBooks,
+  IReadingRequest,
   IRecommendBookResponse,
+  IStartReadingResponse,
 } from "./types";
 
 const BARE_URL = "https://readjourney.b.goit.study/api/books";
@@ -58,6 +61,19 @@ export const booksApi = createApi({
         method: "DELETE",
       }),
     }),
+    getBookById: builder.query<IGetFinishBook, { id: string | null }>({
+      query: ({ id }) => ({
+        url: `/${id}`,
+        method: "GET",
+      }),
+    }),
+    readingStart: builder.mutation<IStartReadingResponse, IReadingRequest>({
+      query: (body) => ({
+        url: '/reading/start',
+        method: 'POST',
+        body,
+      })
+    })
   }),
 });
 
@@ -67,4 +83,6 @@ export const {
   useGetUsersBookQuery,
   useDeleteUsersBookMutation,
   useAddBookMutation,
+  useReadingStartMutation,
+  useGetBookByIdQuery
 } = booksApi;

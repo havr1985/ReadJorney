@@ -4,7 +4,7 @@ import { useAddBookByIdMutation } from "../redux/api/books/bookApi";
 import { useAppSelector } from "../redux/hooks";
 import { selectLibraryBooks } from "../redux/slices/librarySlice";
 import toast from "react-hot-toast";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CustomDarkBtn } from "./CustomDarkBtn";
 
 interface IAddLibraryModalProps {
@@ -29,6 +29,7 @@ export const AddLibraryModal: FC<IAddLibraryModalProps> = ({
   const [addBookbyId, { isError }] = useAddBookByIdMutation();
   const libraryBook = useAppSelector(selectLibraryBooks);
   const location = useLocation();
+  const navigate = useNavigate()
 
   const clickAddBook = (_id: string, title: string) => {
     if (libraryBook) {
@@ -45,6 +46,15 @@ export const AddLibraryModal: FC<IAddLibraryModalProps> = ({
       toast.success("The book has been added to your library!");
     }
   };
+
+  const clickStartReadingBtn = (title: string) => {
+    const idx = libraryBook?.findIndex(item => item.title.toLowerCase() === title.toLowerCase())
+    if (libraryBook && idx !== -1 && idx !== undefined) {
+      localStorage.setItem('readingBookId', libraryBook[idx]._id)
+    }
+    
+    navigate("/reading")
+  }
 
   return (
     <CustomModal modalIsOpen={modalIsOpen} closeModal={modalStateSwitcher}>
@@ -68,7 +78,7 @@ export const AddLibraryModal: FC<IAddLibraryModalProps> = ({
             <CustomDarkBtn type="button">Add to library</CustomDarkBtn>
           </div>
         ) : (
-          <div>
+          <div onClick={() => clickStartReadingBtn(title)}>
             <CustomDarkBtn type="button">Start reading</CustomDarkBtn>
           </div>
         )}

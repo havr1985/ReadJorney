@@ -50,6 +50,7 @@ export const userApi = createApi({
     refresh: builder.mutation<IResponseRefreshApi, void>({
       query: () => ({
         url: "/users/current/refresh",
+        method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("refresh_token")}`,
         },

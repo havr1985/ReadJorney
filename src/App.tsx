@@ -1,49 +1,41 @@
-import { lazy, useEffect } from "react";
+import { lazy } from "react";
 import { Container } from "./components/Container";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { RestictedRoute } from "./components/RestictedRoute";
-import {
-  useCurrentQuery,
-  useRefreshMutation,
-  
-} from "./redux/api/users/userApi";
-import { SerializedError } from "@reduxjs/toolkit";
+import { useCurrentQuery } from "./redux/api/users/userApi";
+// import { SerializedError } from "@reduxjs/toolkit";
 
 const Register = lazy(() => import("./pages/RegisterPage"));
 const Login = lazy(() => import("./pages/LoginPage"));
 const Home = lazy(() => import("./pages/HomePage"));
 const Library = lazy(() => import("./pages/LibraryPage"));
+const Reading = lazy(() => import("./pages/ReadingPage"));
 
-interface CustomError extends SerializedError {
-  status?: number;
-}
+// interface CustomError extends SerializedError {
+//   status?: number;
+// }
 
 function App() {
-  const {
-    isLoading,
-    error,
-    isError: currentError,
-    refetch,
-  } = useCurrentQuery(null);
-  const [refresh] = useRefreshMutation();
-  
+  const { isLoading } = useCurrentQuery(null);
+  // const [refresh] = useRefreshMutation();
 
-  useEffect(() => {
-    const handleTokenRefresh = async () => {
-      try {
-        await refresh();
-        refetch();
-      } catch (refreshError) {
-        console.error("Помилка при оновленні токену поновлення:", refreshError);
-      }
-    };
+  // useEffect(() => {
+  //   const handleTokenRefresh = async () => {
+  //     try {
+  //       await refresh();
+  //       refetch();
+  //     } catch (error)
+  //      {
+  //       console.error("Помилка при оновленні токену поновлення:", error);
+  //     }
+  //   };
 
-    if (currentError && (error as CustomError).status === 401) {
-      handleTokenRefresh();
-    }
-  }, [currentError, error, refresh, refetch]);
+  //   if (currentError && (error as CustomError).status === 401) {
+  //     handleTokenRefresh();
+  //   }
+  // }, [currentError, error, refresh, refetch]);
 
   return (
     <Container>
@@ -73,6 +65,12 @@ function App() {
               path="/library"
               element={
                 <PrivateRoute redirectTo="/login" component={<Library />} />
+              }
+            />
+            <Route
+              path="/reading"
+              element={
+                <PrivateRoute redirectTo="/login" component={<Reading />} />
               }
             />
           </Route>
