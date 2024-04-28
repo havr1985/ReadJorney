@@ -11,8 +11,13 @@ import {
 
 const BARE_URL = "https://readjourney.b.goit.study/api/books";
 
+enum TAGS {
+  BOOK = 'BOOK'
+}
+
 export const booksApi = createApi({
   reducerPath: "booksApi",
+  tagTypes: [TAGS.BOOK],
   baseQuery: fetchBaseQuery({
     baseUrl: BARE_URL,
     prepareHeaders: (headers) => {
@@ -66,14 +71,24 @@ export const booksApi = createApi({
         url: `/${id}`,
         method: "GET",
       }),
+      providesTags: [TAGS.BOOK]
     }),
     readingStart: builder.mutation<IStartReadingResponse, IReadingRequest>({
       query: (body) => ({
         url: '/reading/start',
         method: 'POST',
         body,
-      })
-    })
+      }),
+      invalidatesTags: [TAGS.BOOK]
+    }),
+    readingFinish: builder.mutation<IGetFinishBook, IReadingRequest>({
+      query: (body) => ({
+        url: '/reading/finish',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: [TAGS.BOOK]
+    }),
   }),
 });
 
@@ -84,5 +99,6 @@ export const {
   useDeleteUsersBookMutation,
   useAddBookMutation,
   useReadingStartMutation,
-  useGetBookByIdQuery
+  useGetBookByIdQuery,
+  useReadingFinishMutation,
 } = booksApi;

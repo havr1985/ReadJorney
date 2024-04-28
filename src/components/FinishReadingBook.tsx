@@ -3,26 +3,26 @@ import * as Yup from "yup";
 import { inputStyle } from "../shared/constats/constants";
 import { CustomDarkBtn } from "./CustomDarkBtn";
 import { FC } from "react";
-import { useReadingStartMutation } from "../redux/api/books/bookApi";
+import { useReadingFinishMutation } from "../redux/api/books/bookApi";
 
-interface IPropsAddReading {
-  finishPage: number;
+interface IPropsFinishReading {
+  
   id: string;
 }
 
-export const AddReading: FC<IPropsAddReading> = ({ finishPage, id }) => {
-  const [start] = useReadingStartMutation();
+export const FinishReadingBook: FC<IPropsFinishReading> = ({ id }) => {
+  const [finish] = useReadingFinishMutation()
 
   const formik = useFormik({
     initialValues: {
-      pageNumber: finishPage,
+      pageNumber: 1,
     },
     validationSchema: Yup.object().shape({
       pageNumber: Yup.number().required("Required!"),
     }),
     onSubmit: (values, action) => {
       console.log(values);
-      start({ id, page: values.pageNumber });
+      finish({ id, page: values.pageNumber });
       action.resetForm();
     },
   });
@@ -31,7 +31,7 @@ export const AddReading: FC<IPropsAddReading> = ({ finishPage, id }) => {
       onSubmit={formik.handleSubmit}
       className=" flex flex-col gap-2 md:gap-3.5 md:mr-5 md:w-[45%] xl:w-full"
     >
-      <p className=" text-xs font-medium md:text-sm">Start page:</p>
+      <p className=" text-xs font-medium md:text-sm">Finish page:</p>
       <div>
         <input
           className={inputStyle}
@@ -50,7 +50,7 @@ export const AddReading: FC<IPropsAddReading> = ({ finishPage, id }) => {
       </div>
 
       <div className=" mt-5">
-        <CustomDarkBtn type="submit">To start</CustomDarkBtn>
+        <CustomDarkBtn type="submit">To stop</CustomDarkBtn>
       </div>
     </form>
   );

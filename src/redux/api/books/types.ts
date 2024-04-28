@@ -77,5 +77,5 @@ export interface IGetFinishBook {
   status: string;
   owner: string;
   progress: IProgess[];
-  timeLeftToRead: ITimeLeftToRead;
+  timeLeftToRead?: ITimeLeftToRead;
 }

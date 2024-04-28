@@ -2,9 +2,10 @@ import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit";
 import { userApi } from "./api/users/userApi";
 import auth from "./slices/authSlice";
 import { booksApi } from "./api/books/bookApi";
-import library from './slices/librarySlice';
-import filter from './slices/filterSlice';
-import libraryFilter from './slices/libraryFilterSlice'
+import library from "./slices/librarySlice";
+import filter from "./slices/filterSlice";
+import libraryFilter from "./slices/libraryFilterSlice";
+import reading from "./slices/readingSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     library,
     filter,
     libraryFilter,
+    reading,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([userApi.middleware, booksApi.middleware]),
